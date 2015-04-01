@@ -1,14 +1,15 @@
 package br.edu.ufam.icomp.nsga.bean;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SolucaoTest {
+public class IndividuoTest {
 
-	private Solucao solucao;
+	private Individuo individuo;
 	private Cromossomo tecnica;
 	private Cromossomo analista;
 	private Cromossomo informante;
@@ -23,7 +24,7 @@ public class SolucaoTest {
 		informante = new CromossomoInformante(Arrays.asList(new Boolean[] {
 				true, true, true }));
 
-		solucao = new Solucao(Arrays.asList(tecnica, analista, informante));
+		individuo = new Individuo(Arrays.asList(tecnica, analista, informante));
 	}
 
 	@Test
@@ -33,7 +34,8 @@ public class SolucaoTest {
 
 	@Test
 	public void deveDevolverAAdequacaoDaTecnica() {
-		Assert.assertEquals(825, tecnica.getAdequacao(tecnica));
+		Assert.assertEquals(1650
+				, tecnica.getAdequacao(tecnica));
 	}
 
 	@Test
@@ -58,12 +60,21 @@ public class SolucaoTest {
 
 	@Test
 	public void deveDevolverOCustoDaSolucao() {
-		Assert.assertEquals(1659, solucao.getCusto());
+		Assert.assertEquals(1659, individuo.getCusto());
 	}
 
 
 	@Test
 	public void deveDevolverAAdequacaoDaSolucao() {
-		Assert.assertEquals(5155, solucao.getAdequacao());
+		Assert.assertEquals(5980, individuo.getAdequacao());
+	}
+	
+	@Test
+	public void deveCarregar10IndividuosDoArquivo(){
+		List<Individuo> lista = Individuo.convertFromFile("amostra10.dat");
+		for (Individuo individuo : lista) {
+			System.out.println(individuo);
+		}
+		Assert.assertEquals(10, lista.size());
 	}
 }

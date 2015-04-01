@@ -2,6 +2,8 @@ package br.edu.ufam.icomp.nsga.bean;
 
 import java.util.List;
 
+import br.edu.ufam.icomp.nsga.enums.TipoCromossomo;
+
 public class CromossomoInformante extends Cromossomo {
 	
 	private Integer[][] matrizDeAdequacaoInformante;

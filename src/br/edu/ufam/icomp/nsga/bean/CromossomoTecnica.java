@@ -3,6 +3,8 @@ package br.edu.ufam.icomp.nsga.bean;
 import java.util.Arrays;
 import java.util.List;
 
+import br.edu.ufam.icomp.nsga.enums.TipoCromossomo;
+
 public class CromossomoTecnica extends Cromossomo {
 	
 	private static List<Integer> listaDeAdequacao;
@@ -28,7 +30,7 @@ public class CromossomoTecnica extends Cromossomo {
 				total+=listaDeAdequacao.get(i);
 			}
 		}
-		return total;
+		return total*2;
 	}
 
 	public static List<Integer> getListaDeAdequacao() {

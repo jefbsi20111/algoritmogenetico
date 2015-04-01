@@ -1,7 +1,14 @@
 package br.edu.ufam.icomp.nsga.bean;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringTokenizer;
+
+import br.edu.ufam.icomp.nsga.enums.TipoCromossomo;
+import br.edu.ufam.icomp.nsga.util.Util;
 
 public abstract class Cromossomo {
 	private List<Boolean> listaDeGenes;
@@ -26,6 +33,19 @@ public abstract class Cromossomo {
 	public abstract int getCusto();
 
 	public abstract int getAdequacao(Cromossomo tecnica);
+
+	@Override
+	public String toString() {
+		String genes = "";
+		for (Boolean ocorre : listaDeGenes) {
+			if(ocorre){
+				genes+="1 ";
+			}else{
+				genes+="0 ";
+			}
+		}
+		return genes;
+	}
 
 	public int getCusto(List<Integer> listaDeCustos) {
 		Integer custo = 0;
