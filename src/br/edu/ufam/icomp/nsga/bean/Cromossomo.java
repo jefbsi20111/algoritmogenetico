@@ -1,20 +1,16 @@
 package br.edu.ufam.icomp.nsga.bean;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import br.edu.ufam.icomp.nsga.enums.TipoCromossomo;
-import br.edu.ufam.icomp.nsga.util.Util;
 
 public abstract class Cromossomo {
-	private List<Boolean> listaDeGenes;
 	private static List<Integer> listaDeCustoTecnica;
 	private static List<Integer> listaDeCustoAnalista;
 	private static List<Integer> listaDeCustoInformante;
+	private List<Boolean> listaDeGenes;
 	private TipoCromossomo tipoCromossomo;
 
 	static {
@@ -30,6 +26,43 @@ public abstract class Cromossomo {
 		this.tipoCromossomo = tipoCromossomo;
 	}
 
+	@Override
+	protected Object clone() {
+		return cromossomoFactory(this.tipoCromossomo);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Cromossomo cromossomo = (Cromossomo)obj;
+		if(this.listaDeGenes.size() != cromossomo.listaDeGenes.size()){
+			return false;
+		}
+		for(int i=0; i<listaDeGenes.size();i++){
+			if(this.listaDeGenes.get(i)!=cromossomo.listaDeGenes.get(i)){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private Cromossomo cromossomoFactory(TipoCromossomo tipoCromossomo) {
+		List<Boolean> novaLista = new ArrayList<Boolean>();
+		for (Boolean presente : listaDeGenes) {
+			if(presente){
+				novaLista.add(true);
+			}else{
+				novaLista.add(false);
+			}
+		}
+		if (tipoCromossomo == TipoCromossomo.TECNICA) {
+			return new CromossomoTecnica(novaLista);
+		}
+		if (tipoCromossomo == TipoCromossomo.ANALISTA) {
+			return new CromossomoAnalista(novaLista);
+		}		
+		return new CromossomoInformante(novaLista);
+	}
+
 	public abstract int getCusto();
 
 	public abstract int getAdequacao(Cromossomo tecnica);
@@ -38,10 +71,10 @@ public abstract class Cromossomo {
 	public String toString() {
 		String genes = "";
 		for (Boolean ocorre : listaDeGenes) {
-			if(ocorre){
-				genes+="1 ";
-			}else{
-				genes+="0 ";
+			if (ocorre) {
+				genes += "1 ";
+			} else {
+				genes += "0 ";
 			}
 		}
 		return genes;

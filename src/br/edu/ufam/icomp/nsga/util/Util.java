@@ -35,7 +35,7 @@ public class Util {
 	  /** 
 	  * Returns a permutation vector between the 0 and (length - 1) 
 	  */
-	  public static int [] intPermutation(int length){
+	public static int [] intPermutation(int length){
 	    int [] aux    = new int[length];
 	    int [] result = new int[length];
 	        
@@ -43,7 +43,7 @@ public class Util {
 	    // Also is needed to create an random array of size length
 	    for (int i = 0; i < length; i++) {
 	      result[i] = i;
-	      aux[i] = sorteio(LIMITE_INFERIOR_VETOR,length-1);
+	      aux[i] = PseudoRandom.randInt(0,length-1);
 	    } // for
 	        
 	    // Sort the random array with effect in result, and then we obtain a
